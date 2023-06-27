@@ -1,0 +1,26 @@
+{
+  "name": "@tablerise/database-seeder",
+  "version": "1.1.1",
+  "description": "A library to populate the project database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TableRise/database-seeder.git"
+  },
+  "author": "@table-rise/adson-gomes-oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TableRise/database-seeder.git./issues"
+  },
+  "homepage": "https://github.com/TableRise/database-seeder.git.#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "dependencies": {
+    "dotenv": "16.3.1",
+    "mongodb": "5.6.0"
+  }
+}
