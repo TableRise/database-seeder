@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const readline = require('readline/promises');
 const path = require('path');
 const connectInDatabase = require('./src/connectInDatabase');
