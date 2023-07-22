@@ -4,6 +4,7 @@ const readline = require('readline/promises');
 const path = require('path');
 const connectInDatabase = require('./src/connectInDatabase');
 const seederMecanism = require('./src/seederMecanism');
+require('dotenv').config();
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -12,6 +13,7 @@ const rl = readline.createInterface({
 
 async function seeder() {
   console.log('==== Insert database credentials to connect ====');
+  console.log(process.env.DB_USERNAME);
   const username = await rl.question('username: ');
   const password = await rl.question('password: ');
   const host = await rl.question('host: ');
