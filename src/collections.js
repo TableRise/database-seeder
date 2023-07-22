@@ -1,21 +1,22 @@
 module.exports = ({ database, title }) => {
-  if (title === 'Dungeons&Dragons') {
+  if (title === 'tablerise') {
     return {
       database,
       collections: {
         systems: database.collection('systems'),
+        realms: database.collection('realms'),
+        gods: database.collection('gods'),
+        feats: database.collection('feats'),
+        backgrounds: database.collection('backgrounds'),
         races: database.collection('races'),
         items: database.collection('items'),
         weapons: database.collection('weapons'),
         armors: database.collection('armors'),
-        backgrounds: database.collection('backgrounds'),
-        feats: database.collection('feats'),
-        wiki: database.collection('wiki'),
-        monsters: database.collection('monsters'),
         classes: database.collection('classes'),
+        monsters: database.collection('monsters'),
         spells: database.collection('spells'),
-        realms: database.collection('realms'),
-        gods: database.collection('gods'),
+        wiki: database.collection('wiki'),
+        magicItems: database.collection('magicItems')
       }
     }
   }

@@ -4,6 +4,7 @@ const readline = require('readline/promises');
 const path = require('path');
 const connectInDatabase = require('./src/connectInDatabase');
 const seederMecanism = require('./src/seederMecanism');
+const waitFor = require('./src/waitFor');
 require('dotenv').config();
 
 const rl = readline.createInterface({
@@ -12,42 +13,49 @@ const rl = readline.createInterface({
 });
 
 async function seeder() {
-  console.log('==== Insert database credentials to connect ====');
-  console.log(process.env.DB_USERNAME);
-  // const username = await rl.question('username: ');
-  // const password = await rl.question('password: ');
-  // const host = await rl.question('host: ');
-  // const port = await rl.question('port: ');
-  // const database = await rl.question('database: ');
-  // const initialString = await rl.question('initialString: ');
-  // const file = await rl.question('Path to seed file ( JSON ): ');
+  console.log('==== DATABASE SEEDER ====');
+  console.log('Which entity do you want to populate in datababse?');
   console.log('===============================================');
+  console.log('1) systems');
+  console.log('===============================================');
+  const choice = await rl.question('Choose an option (type the number): ');
+  let entity;
 
-  // const start = Date.now();
-  // const absolutePath = path.resolve(__dirname, file);
-  // const seeds = require(absolutePath);
+  if (choice === '1') entity = 'systems';
 
-  // if (seeds) console.log('>> Seeds captured <<');
-  // if (!seeds) throw new Error('Seeds not captured [ import error ]');
+  const start = Date.now();
+  const username = process.env.MONGODB_USERNAME;
+  const password = process.env.MONGODB_PASSWORD;
+  const host = process.env.MONGODB_HOST;
+  const database = process.env.MONGODB_DATABASE;
+  const initialString = process.env.MONGODB_CONNECTION_INITIAL;
 
-  // const instance = await connectInDatabase({
-  //   title: 'Dungeons&Dragons',
-  //   username,
-  //   password,
-  //   host,
-  //   port,
-  //   database,
-  //   initialString
-  // });
+  const seeds = require(path.resolve(`./src/database/seeders/${entity}`));
 
-  // console.log(':: Start seeding ::');
+  if (seeds) console.log('>> Seeds captured <<');
+  if (!seeds) throw new Error('Seeds not captured [ import error ]');
+  await waitFor(500);
 
-  // await seederMecanism(seeds, instance);
+  const connection = await connectInDatabase({
+    title: 'tablerise',
+    username,
+    password,
+    host,
+    database,
+    initialString
+  });
 
-  // const end = Date.now();
-  // const executionTime = end - start;
+  await waitFor(500);
+  console.log(':: Start seeding ::');
+
+  await seederMecanism(seeds, connection.instance);
+
+  await waitFor(500);
+  await connection.client.close();
+  const end = Date.now();
+  const executionTime = end - start;
   console.log(':: Seeding process complete - database populated with success ::');
-  // console.log(`:: Time of execution: ${executionTime} ::`); 
+  console.log(`:: Time of execution: ${executionTime - 1500}ms ::`);
 };
 
 seeder().then(() => rl.close()).catch((error) => { throw error });

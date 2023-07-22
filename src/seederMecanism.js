@@ -3,7 +3,7 @@ module.exports = async (seed, instance) => {
     const promises = [];
   
     for (let key in seed) {
-      console.log(`:: Seed ${key} ::`);
+      console.log(`:: Seeding ${key} entity ::`);
       promises.push(instance.collections[key].insertMany(seed[key]));
     }
   
