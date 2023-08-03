@@ -20,7 +20,7 @@ module.exports = async (seed, instance, operation) => {
     
       for (let key in seed) {
         console.log(`:: Erase ${key} entity ::`);
-        promises.push(instance.collections[key].deleteMany([]));
+        promises.push(instance.collections[key].deleteMany({}));
       }
     
       await Promise.all(promises);
