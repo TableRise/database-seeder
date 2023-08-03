@@ -13,15 +13,28 @@ const rl = readline.createInterface({
 });
 
 async function seeder() {
+  console.clear();
   console.log('==== DATABASE SEEDER ====');
-  console.log('Which entity do you want to populate in datababse?');
+  console.log('Which entity do you want to seed in datababse?');
   console.log('===============================================');
   console.log('1) systems');
   console.log('===============================================');
-  const choice = await rl.question('Choose an option (type the number): ');
-  let entity;
+  const choiceOne = await rl.question('Choose an option (type the number): ');
 
-  if (choice === '1') entity = 'systems';
+  let entity;
+  if (choiceOne === '1') entity = 'systems';
+
+  console.clear();
+  console.log('==== DATABASE SEEDER ====');
+  console.log('Which operation do you want to perform?');
+  console.log('===============================================');
+  console.log('1) populate');
+  console.log('2) undo populate');
+  console.log('0) back to menu');
+  console.log('===============================================');
+  const choiceTwo = await rl.question('Choose an option (type the number): ');
+
+  if (choiceTwo === '0') return seeder();
 
   const start = Date.now();
   const username = process.env.MONGODB_USERNAME;
@@ -48,7 +61,7 @@ async function seeder() {
   await waitFor(500);
   console.log(':: Start seeding ::');
 
-  await seederMecanism(seeds, connection.instance);
+  await seederMecanism(seeds, connection.instance, choiceTwo === '1' ? 'populate' : 'undo populate');
 
   await waitFor(500);
   await connection.client.close();
