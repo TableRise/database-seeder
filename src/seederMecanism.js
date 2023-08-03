@@ -19,7 +19,7 @@ module.exports = async (seed, instance, operation) => {
       const promises = [];
     
       for (let key in seed) {
-        console.log(`:: Seeding ${key} entity ::`);
+        console.log(`:: Erase ${key} entity ::`);
         promises.push(instance.collections[key].deleteMany([]));
       }
     
