@@ -15,14 +15,14 @@ const rl = readline.createInterface({
 async function seeder() {
   console.clear();
   console.log('==== DATABASE SEEDER ====');
-  console.log('Which entity do you want to seed in datababse?');
+  console.log('Which data do you want to seed in datababse?');
   console.log('===============================================');
-  console.log('1) systems');
+  console.log('1) Dungeons & Dragons - 5° Edition');
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
 
   let entity;
-  if (choiceOne === '1') entity = 'systems';
+  if (choiceOne === '1') entity = 'dungeons&dragons5e';
 
   console.clear();
   console.log('==== DATABASE SEEDER ====');
@@ -40,17 +40,17 @@ async function seeder() {
   const username = process.env.MONGODB_USERNAME;
   const password = process.env.MONGODB_PASSWORD;
   const host = process.env.MONGODB_HOST;
-  const database = process.env.MONGODB_DATABASE;
+  const database = `${entity}${process.env.MONGODB_DATABASE}`;
   const initialString = process.env.MONGODB_CONNECTION_INITIAL;
 
-  const seeds = require(path.resolve(`./src/database/seeders/${entity}`));
+  const declarations = require(path.resolve('./src/database/seeders/declarations.js'));
 
-  if (seeds) console.log('>> Seeds captured <<');
-  if (!seeds) throw new Error('Seeds not captured [ import error ]');
+  if (declarations) console.log(':: Declarations read ::');
+  if (!declarations) throw new Error(':: Declarations not read [ import error ] ::');
   await waitFor(500);
 
-  const connection = await connectInDatabase({
-    title: 'tablerise',
+  const connection = await connectInDatabase(declarations, {
+    title: entity,
     username,
     password,
     host,
@@ -59,8 +59,11 @@ async function seeder() {
   });
 
   await waitFor(500);
-  console.log(':: Start seeding ::');
+  console.log(':: Looking for seeds ::');
 
+  const seeds = require(path.resolve(`./src/database/seeders/${entity}`));
+
+  console.log(':: Seeds Found ::');
   await seederMecanism(seeds, connection.instance, choiceTwo === '1' ? 'populate' : 'undo populate');
 
   await waitFor(500);
