@@ -5,7 +5,6 @@ const path = require('path');
 const connectInDatabase = require('./src/connectInDatabase');
 const seederMecanism = require('./src/seederMecanism');
 const waitFor = require('./src/waitFor');
-require('dotenv').config();
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -37,34 +36,34 @@ async function seeder() {
   if (choiceTwo === '0') return seeder();
 
   const start = Date.now();
-  const username = process.env.MONGODB_USERNAME;
-  const password = process.env.MONGODB_PASSWORD;
-  const host = process.env.MONGODB_HOST;
-  const database = `${entity}${process.env.MONGODB_DATABASE}`;
-  const initialString = process.env.MONGODB_CONNECTION_INITIAL;
+
+  const environmentInfo = require(path.resolve('./tablerise.environment.js'));
+
+  if (!environmentInfo) throw new Error(':: tablerise.environment.json not found ::');
+  console.log(':: Environment variables found ::');
 
   const declarations = require(path.resolve('./src/database/seeders/declarations.js'));
 
-  if (declarations) console.log(':: Declarations read ::');
   if (!declarations) throw new Error(':: Declarations not read [ import error ] ::');
+  console.log(':: Declarations read ::');
   await waitFor(500);
 
   const connection = await connectInDatabase(declarations, {
     title: entity,
-    username,
-    password,
-    host,
-    database,
-    initialString
+    username: environmentInfo.database_username,
+    password: environmentInfo.database_password,
+    host: environmentInfo.database_host,
+    database: environmentInfo.database_database,
+    initialString: environmentInfo.database_initialString
   });
 
   await waitFor(500);
   console.log(':: Looking for seeds ::');
 
-  const seeds = require(path.resolve(`./src/database/seeders/${entity}`));
+  const seed = require(path.resolve(`./src/database/seeders/${entity}`));
 
   console.log(':: Seeds Found ::');
-  await seederMecanism(seeds, connection.instance, choiceTwo === '1' ? 'populate' : 'undo populate');
+  await seederMecanism(seed, connection.instance, choiceTwo === '1' ? 'populate' : 'undo populate');
 
   await waitFor(500);
   await connection.client.close();

@@ -1,6 +1,5 @@
 const mongodb = require('mongodb');
 const collections = require('./collections');
-require('dotenv').config();
 
 module.exports = async (declarations, { title, username, password, host, database, initialString }) => {
   const firstSection = `${initialString}://${username}:${password}`;
