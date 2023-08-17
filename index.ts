@@ -8,7 +8,7 @@ const waitFor = require('./src/waitFor');
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 async function seeder() {
@@ -20,7 +20,7 @@ async function seeder() {
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
 
-  let entity;
+  let entity = '';
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
 
   console.clear();
@@ -39,12 +39,14 @@ async function seeder() {
 
   const environmentInfo = require(path.resolve('./tablerise.environment.js'));
 
-  if (!environmentInfo) throw new Error(':: tablerise.environment.json not found ::');
+  if (!environmentInfo)
+    throw new Error(':: tablerise.environment.json not found ::');
   console.log(':: Environment variables found ::');
 
-  const declarations = require(path.resolve('./src/database/seeders/declarations.js'));
+  const declarations = require(path.resolve('./src/data/declarations.js'));
 
-  if (!declarations) throw new Error(':: Declarations not read [ import error ] ::');
+  if (!declarations)
+    throw new Error(':: Declarations not read [ import error ] ::');
   console.log(':: Declarations read ::');
   await waitFor(500);
 
@@ -54,23 +56,33 @@ async function seeder() {
     password: environmentInfo.database_password,
     host: environmentInfo.database_host,
     database: environmentInfo.database_database,
-    initialString: environmentInfo.database_initialString
+    initialString: environmentInfo.database_initialString,
   });
 
   await waitFor(500);
   console.log(':: Looking for seeds ::');
 
-  const seed = require(path.resolve(`./src/database/seeders/${entity}`));
+  const seed = require(path.resolve(`./src/data/${entity}`));
 
   console.log(':: Seeds Found ::');
-  await seederMecanism(seed, connection.instance, choiceTwo === '1' ? 'populate' : 'undo populate');
+  await seederMecanism(
+    seed,
+    connection.instance,
+    choiceTwo === '1' ? 'populate' : 'undo populate'
+  );
 
   await waitFor(500);
   await connection.client.close();
   const end = Date.now();
   const executionTime = end - start;
-  console.log(':: Seeding process complete - database populated with success ::');
+  console.log(
+    ':: Seeding process complete - database populated with success ::'
+  );
   console.log(`:: Time of execution: ${executionTime - 1500}ms ::`);
-};
+}
 
-seeder().then(() => rl.close()).catch((error) => { throw error });
+seeder()
+  .then(() => rl.close())
+  .catch((error) => {
+    throw error;
+  });

@@ -1,7 +1,22 @@
 const mongodb = require('mongodb');
 const collections = require('./collections');
+import {
+  declarationsType,
+  connectionInfoType,
+  connectType,
+} from './types/databaseSeederTypes';
 
-module.exports = async (declarations, { title, username, password, host, database, initialString }) => {
+module.exports = async (
+  declarations: declarationsType,
+  {
+    title,
+    username,
+    password,
+    host,
+    database,
+    initialString,
+  }: connectionInfoType
+): Promise<connectType | Error> => {
   const firstSection = `${initialString}://${username}:${password}`;
   const secondSection = `@${host}/${database}`;
 
@@ -9,8 +24,8 @@ module.exports = async (declarations, { title, username, password, host, databas
     serverApi: {
       version: mongodb.ServerApiVersion.v1,
       strict: true,
-      deprecationErrors: true
-    }
+      deprecationErrors: true,
+    },
   });
 
   try {
@@ -18,11 +33,14 @@ module.exports = async (declarations, { title, username, password, host, databas
     await client.db('admin').command({ ping: 1 });
     console.log('MongoDB instance connected successfully');
 
-    const instance = collections(declarations, { database: client.db(title), title });
+    const instance = collections(declarations, {
+      database: client.db(title),
+      title,
+    });
 
     return { instance, client };
   } catch (error) {
     await client.close();
     throw error;
   }
-}
+};
