@@ -1,11 +1,12 @@
 {
   "name": "@tablerise/database-seeder",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "A library to populate the project database",
   "main": "index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "dist": "tsc && copy /Y package.json dist && copy /Y readme.md dist && cd dist && npm publish"
   },
   "bin": {
     "@tablerise/database-seeder": "index.js"
