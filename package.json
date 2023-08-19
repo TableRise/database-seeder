@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dist": "tsc && copy /Y package.json dist && copy /Y readme.md dist && cd dist && npm publish"
+    "dist": "tsc && copy /Y package.json dist && cd dist && npm publish"
   },
   "bin": {
     "@tablerise/database-seeder": "index.js"
