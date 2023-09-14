@@ -17,11 +17,13 @@ async function seeder() {
   console.log('Which data do you want to seed in datababse?');
   console.log('===============================================');
   console.log('1) Dungeons & Dragons - 5° Edition');
+  console.log('2) Users');
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
 
   let entity = '';
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
+  if (choiceOne === '2') entity = 'user';
 
   console.clear();
   console.log('==== DATABASE SEEDER ====');
