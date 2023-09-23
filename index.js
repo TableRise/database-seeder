@@ -69,6 +69,8 @@ async function seeder() {
 
   const seed = require(path.resolve(`./src/data/${entity}`));
 
+  console.log(seed);
+
   console.log(':: Seeds Found ::');
   await seederMecanism(
     seed,
