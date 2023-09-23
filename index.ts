@@ -18,12 +18,14 @@ async function seeder() {
   console.log('===============================================');
   console.log('1) Dungeons & Dragons - 5° Edition');
   console.log('2) Users');
+  console.log('0) Exit');
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
 
   let entity = '';
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
   if (choiceOne === '2') entity = 'user';
+  if (choiceOne === '0') return;
 
   console.clear();
   console.log('==== DATABASE SEEDER ====');
@@ -83,8 +85,4 @@ async function seeder() {
   console.log(`:: Time of execution: ${executionTime - 1500}ms ::`);
 }
 
-seeder()
-  .then(() => rl.close())
-  .catch((error) => {
-    throw error;
-  });
+seeder().then(() => rl.close());
