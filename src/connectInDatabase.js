@@ -7,7 +7,7 @@ import {
 } from './types/databaseSeederTypes';
 
 module.exports = async (
-  declarations: declarationsType,
+  declarations,
   {
     title,
     username,
@@ -15,8 +15,8 @@ module.exports = async (
     host,
     database,
     initialString,
-  }: connectionInfoType
-): Promise<connectType | Error> => {
+  }
+) => {
   const firstSection = `${initialString}://${username}:${password}`;
   const secondSection = `@${host}/${database}`;
 

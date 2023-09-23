@@ -1,10 +1,7 @@
-import { collectionsType, seedType } from './types/databaseSeederTypes';
-
 module.exports = async (
-  seed: seedType,
-  instance: collectionsType,
-  operation: string
-): Promise<void | Error> => {
+  seed,
+  operation
+) => {
   if (operation === 'populate') {
     try {
       const promises = [];

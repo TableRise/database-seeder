@@ -1,6 +1,6 @@
 {
   "name": "@tablerise/database-seeder",
-  "version": "4.4.1",
+  "version": "4.4.2",
   "description": "A library to populate the project database",
   "main": "index.js",
   "types": "dist/index.d.ts",
@@ -23,10 +23,6 @@
   "homepage": "https://github.com/TableRise/database-seeder.git.#readme",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
-  },
-  "devDependencies": {
-    "@types/node": "20.1.1",
-    "typescript": "5.0.4"
   },
   "dependencies": {
     "mongodb": "5.6.0"
