@@ -48,7 +48,6 @@ async function seeder() {
   console.log(':: Environment variables found ::');
 
   const declarations = require(path.resolve('./src/data/declarations.js'));
-  console.log(declarations);
 
   if (!declarations)
     throw new Error(':: Declarations not read [ import error ] ::');
@@ -68,8 +67,6 @@ async function seeder() {
   console.log(':: Looking for seeds ::');
 
   const seed = require(path.resolve(`./src/data/${entity}`));
-
-  console.log(seed);
 
   console.log(':: Seeds Found ::');
   await seederMecanism(

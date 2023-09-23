@@ -1,5 +1,6 @@
 module.exports = async (
   seed,
+  instance,
   operation
 ) => {
   if (operation === 'populate') {
