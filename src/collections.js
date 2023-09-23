@@ -11,6 +11,8 @@ module.exports = (
     collections[ent] = database.collection(ent);
   });
 
+  console.log(collections);
+
   return {
     database,
     collections,
