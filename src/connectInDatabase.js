@@ -1,10 +1,5 @@
 const mongodb = require('mongodb');
 const collections = require('./collections');
-import {
-  declarationsType,
-  connectionInfoType,
-  connectType,
-} from './types/databaseSeederTypes';
 
 module.exports = async (
   declarations,

@@ -1,5 +1,3 @@
-import { Collection } from 'mongodb';
-
 module.exports = (
   declarations,
   { database, title }
