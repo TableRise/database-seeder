@@ -21,6 +21,7 @@ async function seeder() {
   console.log('0) Exit');
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
+  console.time(':: Time of execution ::');
 
   let entity = '';
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
@@ -82,7 +83,7 @@ async function seeder() {
   console.log(
     ':: Seeding process complete - database populated with success ::'
   );
-  console.log(`:: Time of execution: ${executionTime - 1500}ms ::`);
+  console.timeEnd(`:: Time of execution ::`);
 }
 
 seeder().then(() => rl.close());
