@@ -67,7 +67,7 @@ async function seeder() {
   await waitFor(500);
   console.log(':: Looking for seeds ::');
 
-  const seed = require(path.resolve(`./src/data/${entity}`));
+  const seed = require(path.resolve(`./src/infra/data/${entity}`));
 
   console.log(':: Seeds Found ::');
   await seederMecanism(
