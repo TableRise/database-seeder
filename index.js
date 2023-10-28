@@ -48,7 +48,7 @@ async function seeder() {
     throw new Error(':: tablerise.environment.json not found ::');
   console.log(':: Environment variables found ::');
 
-  const declarations = require(path.resolve('./src/data/declarations.js'));
+  const declarations = require(path.resolve('./src/infra/data/declarations.js'));
 
   if (!declarations)
     throw new Error(':: Declarations not read [ import error ] ::');
