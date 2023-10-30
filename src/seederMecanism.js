@@ -5,7 +5,7 @@ module.exports = async (
   entity,
   operation
 ) => {
-  const modelInstance = new DatabaseManagement().modelInstance;
+  const DB = new DatabaseManagement();
 
   if (operation === 'populate') {
     try {
@@ -14,7 +14,7 @@ module.exports = async (
       for (let key in seed) {
         console.log(`:: Seeding ${key} entity ::`);
 
-        const model = modelInstance(entity, key);
+        const model = DB.modelInstance(entity, key);
 
         seed[key].forEach((content) => {
           promises.push(model.create(content))

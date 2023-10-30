@@ -26,7 +26,7 @@ async function seeder() {
   let entity = '';
 
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
-  if (choiceOne === '2') entity = 'users';
+  if (choiceOne === '2') entity = 'user';
   if (choiceOne === '0') return;
 
   console.clear();
