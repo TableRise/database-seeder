@@ -34,7 +34,8 @@ module.exports = async (
 
       for (let key of declarations[entity]) {
         console.log(`:: Erase ${key} entity ::`);
-        promises.push(mongoose.model(key).deleteMany({}));
+        const coll = new mongoose.Collection(key);
+        promises.push(coll.deleteMany({}));
       }
 
       await Promise.all(promises);
