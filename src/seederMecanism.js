@@ -32,7 +32,7 @@ module.exports = async (
     try {
       const promises = [];
 
-      for (let key of declarations[entity]) {
+      for (let key in seed) {
         console.log(`:: Erase ${key} entity ::`);
         const model = DB.modelInstance(entity, key);
 
