@@ -70,6 +70,7 @@ async function seeder() {
   await seederMecanism(
     seed,
     entity,
+    declarations,
     choiceTwo === '1' ? 'populate' : 'undo populate'
   );
 

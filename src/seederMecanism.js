@@ -3,6 +3,7 @@ const { default: DatabaseManagement, mongoose } = require('@tablerise/database-m
 module.exports = async (
   seed,
   entity,
+  declarations,
   operation
 ) => {
   const DB = new DatabaseManagement();
@@ -31,7 +32,7 @@ module.exports = async (
     try {
       const promises = [];
 
-      for (let key in seed) {
+      for (let key in declarations) {
         console.log(`:: Erase ${key} entity ::`);
         promises.push(mongoose.model(key).deleteMany({}));
       }
