@@ -32,7 +32,7 @@ module.exports = async (
     try {
       const promises = [];
 
-      for (let key in declarations) {
+      for (let key in declarations[entity]) {
         console.log(`:: Erase ${key} entity ::`);
         promises.push(mongoose.model(key).deleteMany({}));
       }
