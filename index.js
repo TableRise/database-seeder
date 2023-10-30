@@ -2,7 +2,7 @@
 
 const readline = require('readline/promises');
 const path = require('path');
-const connectInDatabase = require('./src/connectInDatabase');
+const { default: DatabaseManagement, mongoose } = require("@tablerise/database-management");
 const seederMecanism = require('./src/seederMecanism');
 const waitFor = require('./src/waitFor');
 
@@ -24,8 +24,9 @@ async function seeder() {
   console.time(':: Time of execution ::');
 
   let entity = '';
+
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
-  if (choiceOne === '2') entity = 'user';
+  if (choiceOne === '2') entity = 'users';
   if (choiceOne === '0') return;
 
   console.clear();
@@ -40,46 +41,42 @@ async function seeder() {
 
   if (choiceTwo === '0') return seeder();
 
-  const start = Date.now();
-
   const environmentInfo = require(path.resolve('./tablerise.environment.js'));
 
   if (!environmentInfo)
     throw new Error(':: tablerise.environment.json not found ::');
+
   console.log(':: Environment variables found ::');
 
   const declarations = require(path.resolve('./src/infra/data/declarations.js'));
 
   if (!declarations)
     throw new Error(':: Declarations not read [ import error ] ::');
+
   console.log(':: Declarations read ::');
-  await waitFor(500);
-
-  const connection = await connectInDatabase(declarations, {
-    title: entity,
-    username: environmentInfo.database_username,
-    password: environmentInfo.database_password,
-    host: environmentInfo.database_host,
-    database: environmentInfo.database_database,
-    initialString: environmentInfo.database_initialString,
-  });
 
   await waitFor(500);
+
+  DatabaseManagement.connect(true);
+
+  await waitFor(500);
+
   console.log(':: Looking for seeds ::');
 
   const seed = require(path.resolve(`./src/infra/data/${entity}`));
 
   console.log(':: Seeds Found ::');
+
   await seederMecanism(
     seed,
-    connection.instance,
+    entity,
     choiceTwo === '1' ? 'populate' : 'undo populate'
   );
 
   await waitFor(500);
-  await connection.client.close();
-  const end = Date.now();
-  const executionTime = end - start;
+
+  await mongoose.connection.close();
+
   console.log(
     ':: Seeding process complete - database populated with success ::'
   );

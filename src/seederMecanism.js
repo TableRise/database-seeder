@@ -1,15 +1,24 @@
+const { default: DatabaseManagement, mongoose } = require('@tablerise/database-management');
+
 module.exports = async (
   seed,
-  instance,
+  entity,
   operation
 ) => {
+  const modelInstance = new DatabaseManagement().modelInstance;
+
   if (operation === 'populate') {
     try {
       const promises = [];
 
       for (let key in seed) {
         console.log(`:: Seeding ${key} entity ::`);
-        promises.push(instance.collections[key].insertMany(seed[key]));
+
+        const model = modelInstance(entity, key);
+
+        seed[key].forEach((content) => {
+          promises.push(model.create(content))
+        });
       }
 
       await Promise.all(promises);
@@ -24,7 +33,7 @@ module.exports = async (
 
       for (let key in seed) {
         console.log(`:: Erase ${key} entity ::`);
-        promises.push(instance.collections[key].deleteMany({}));
+        promises.push(mongoose.model(key).deleteMany({}));
       }
 
       await Promise.all(promises);
