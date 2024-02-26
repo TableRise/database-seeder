@@ -25,7 +25,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "@tablerise/database-management": "^3.7.0",
+    "@tablerise/database-management": "3.9.6",
     "mongodb": "5.6.0"
   }
 }
