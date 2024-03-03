@@ -59,7 +59,7 @@ async function seeder() {
 
   await waitFor(500);
 
-  DatabaseManagement.connect(true);
+  DatabaseManagement.connect(true, 'mongoose');
 
   await waitFor(500);
 
