@@ -4,6 +4,7 @@
   "description": "A library to populate the project database",
   "main": "index.js",
   "types": "dist/index.d.ts",
+  "files": ["/dist"],
   "scripts": {
     "build": "tsc",
     "dist": "tsc && copy /Y package.json dist && cd dist && npm publish"
