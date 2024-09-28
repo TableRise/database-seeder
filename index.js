@@ -84,6 +84,7 @@ async function seeder() {
     ':: Seeding process complete - database populated with success ::'
   );
   console.timeEnd(`:: Time of execution ::`);
+  seeder();
 }
 
 seeder().then(() => rl.close());
