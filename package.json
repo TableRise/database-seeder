@@ -1,6 +1,6 @@
 {
   "name": "@tablerise/database-seeder",
-  "version": "5.5.0",
+  "version": "5.5.1",
   "description": "A library to populate the project database",
   "main": "index.js",
   "files": [
