@@ -1,6 +1,6 @@
 {
   "name": "@tablerise/database-seeder",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "description": "A library to populate the project database",
   "main": "index.js",
   "files": [
@@ -23,7 +23,7 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "dependencies": {
-    "@tablerise/database-management": "5.4.0",
+    "@tablerise/database-management": "5.4.1",
     "mongodb": "5.6.0"
   }
 }
