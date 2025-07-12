@@ -19,6 +19,7 @@ async function seeder() {
   console.log('1) Dungeons & Dragons - 5° Edition');
   console.log('2) Users');
   console.log('3) Campaigns');
+  console.log('4) Characters')
   console.log('0) Exit');
   console.log('===============================================');
   const choiceOne = await rl.question('Choose an option (type the number): ');
@@ -29,6 +30,7 @@ async function seeder() {
   if (choiceOne === '1') entity = 'dungeons&dragons5e';
   if (choiceOne === '2') entity = 'user';
   if (choiceOne === '3') entity = 'campaign';
+  if (choiceOne === '4') entity = 'character';
   if (choiceOne === '0') return;
 
   console.clear();
